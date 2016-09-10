@@ -9,7 +9,6 @@ class Command(BaseCommand):
 		TipoSolucion.objects.all().delete()
 		Asesor.objects.all().delete()
 		Tematica.objects.all().delete()
-		AutorProyecto.objects.all().delete()
 		Proyecto.objects.all().delete()
 		Estado.objects.all().delete()
 		print "Datos Eliminados"
