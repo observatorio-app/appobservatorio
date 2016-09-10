@@ -1,0 +1,49 @@
+{% extends 'layouts/base.html' %}
+
+{% load custom_filters %}
+
+{% block content %}
+	{% include 'elements/nav_top.html' %}
+	<div class="container">
+		{% include 'elements/nav_content.html' %}
+		<div class="content">
+			<div class="row">
+				<div class="col-md-4">
+					<p><strong>Asesor principal: </strong>{{ object.asesor }}</p>
+				</div>
+				<div class="col-md-4">
+					<p><strong>Tipo de solución: </strong>{{ object.tipo_solucion }}</p>
+				</div>
+				<div class="col-md-4">
+					<p><strong>Área temática: </strong>{{ object.area_tematica }}</p>
+				</div>
+			</div>
+			<p class="title-project" style="font-size: 20px;">
+				<strong>{{ object.nombre_proyecto }}</strong>
+			</p>
+			<p>{{ object.descripcion_proyecto }}</p>
+			<div class="row">
+				<div class="col-md-4">
+					<p><strong>Autor principal: </strong>{{ object.nombre_autor }}</p>
+				</div>
+				<div class="col-md-3">
+					<p><strong>Año publicación: </strong>{{ object.fecha_publicacion }}</p>
+				</div>
+			</div>
+			<a href="{% url 'download_document' object.pk %}" class="btn btn-primary" target="_blank">Descargar Resumen</a>
+		</div>
+		<h3>Proyectos relacionados:</h3>
+		{% relation_project object.pk as project_related %}
+		<div class="row">
+			{% for proyecto in project_related %}
+				<div class="col-md-4">
+					<div class="content">
+						<a href="{% url 'detalle_proyecto' proyecto.pk %}">
+							<strong>{{ proyecto.nombre_proyecto }}</strong>
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock content %}
