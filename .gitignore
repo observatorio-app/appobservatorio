@@ -1,1 +1,4 @@
 observatorio/static/file/*
+observatorio/apps/base/migrations/*
+observatorio/apps/proyecto/migrations/*
+observatorio/apps/usuario/migrations/*
