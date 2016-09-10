@@ -74,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'observatorio.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 if 'DATABASE_URL' in os.environ:
