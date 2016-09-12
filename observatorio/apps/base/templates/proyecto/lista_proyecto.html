@@ -9,36 +9,36 @@
 				<div class="col-md-8">
 					<h2>Proyectos</h2>
 					<small>Encontrará aquí los proyectos del programa de ingenieria de sistemas que estan archivados en la biblioteca Guillermo Bermudez desde el año 1991 hasta el año 2015</small>
-					<div class="col-md-12">
-						{% for proyecto in object_list %}
-							<div class=" col-md-12 item">
-								<div class="col-md-4">
-									<small>
-										<strong>Área temática: </strong>
-										{{ proyecto.area_tematica }}
-									</small>
-								</div>
-								<div class="col-md-7">
-									<small>
-										<strong>Asesor principal: </strong>
-										{{ proyecto.asesor }}
-									</small>
-								</div>
-								<div class="col-md-1 text-right">
-									<small>
-										<strong>{{ proyecto.fecha_publicacion }}</strong>
-									</small>
-								</div>
-								<div class="col-md-12">
-									<p class="title-project">
-										<a href="{% url 'detalle_proyecto' proyecto.pk %}">
-											<strong>{{ proyecto.nombre_proyecto }}</strong>
-										</a>
-									</p>
-								</div>
+					{% for proyecto in object_list %}
+						<div class=" col-md-12 item">
+							<div class="col-md-4">
+								<small>
+									<strong>Área temática: </strong>
+									{{ proyecto.area_tematica }}
+								</small>
 							</div>
-						{% endfor %}
-					</div>
+							<div class="col-md-7">
+								<small>
+									<strong>Asesor principal: </strong>
+									{{ proyecto.asesor }}
+								</small>
+							</div>
+							<div class="col-md-1 text-right">
+								<small>
+									<strong>{{ proyecto.fecha_publicacion }}</strong>
+								</small>
+							</div>
+							<div class="col-md-12">
+								<p class="title-project">
+									<a href="{% url 'detalle_proyecto' proyecto.pk %}">
+										<strong>{{ proyecto.nombre_proyecto }}</strong>
+									</a>
+								</p>
+							</div>
+						</div>
+					{% empty %}
+						<h3>No se encontraron resultados</h3>
+					{% endfor %}
 					<div class="col-md-12">
 						{% include 'elements/pagination.html' %}
 					</div>
@@ -46,6 +46,19 @@
 				<div class="col-md-4">
 					<div class="col-md-12 text-center" id="filter">
 						<h4>Filtros</h4>
+					</div>
+					<div class="col-md-12">
+						<form action="{% url 'inicio' %}" method="GET" style="margin-top: 15px">
+							{% for forms in form %}
+								<div class="form-group">
+									<label>{{ forms.label }}</label>
+									{{ forms }}
+								</div>
+							{% endfor %}
+							<div class="form-group text-center">
+								<button type="submit" class="btn btn-success">Filtrar</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

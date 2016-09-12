@@ -9,4 +9,5 @@ project_patterns = [
 urlpatterns = patterns('observatorio.apps.proyecto.views',
 	url(r'^$', ProyectoListView.as_view(), name = 'inicio'),
 	url(r'^proyecto/(?P<pk>[0-9]+)/', include(project_patterns)),
+	url(r'^asesor/$', AsesorListView.as_view(), name = 'asesor'),
 )
