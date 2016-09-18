@@ -80,6 +80,7 @@ if 'DATABASE_URL' in os.environ:
 	DATABASES = {}
 	DATABASES['default'] = dj_database_url.config()
 else:
+	"""
 	DATABASES = {
 		'default': {
 			'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -88,6 +89,19 @@ else:
 			'PASSWORD': 'root',
 			'HOST': 'localhost',
 			'PORT': '',
+		}
+	}
+	"""
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.mysql',
+			'NAME': 'observatorio_db',
+			'USER': 'user_db',
+			'PASSWORD': 'qwertyuiop',
+			'OPTIONS': {
+				'autocommit': True,
+			},
+			'HOST': '127.0.0.1',
 		}
 	}
 
@@ -109,6 +123,9 @@ AUTH_PASSWORD_VALIDATORS = [
 	},
 ]
 
+LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = '/usuario/ingresar/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

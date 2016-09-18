@@ -7,4 +7,5 @@ urlpatterns = [
 	url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 	url(r'^', include('observatorio.apps.base.urls')),
 	url(r'^', include('observatorio.apps.proyecto.urls')),
+	url(r'^usuario/', include('observatorio.apps.usuario.urls')),
 ]

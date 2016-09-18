@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+	{% include 'elements/nav_top.html' %}
+	<div class="container">
+		{% include 'elements/nav_content.html' %}
+		<div class="content">
+			<h2>
+				{{ title }}
+			</h2>
+			<form action="{{ url }}" method="POST" enctype="multipart/form-data" style="margin-top: 15px">
+				{% csrf_token %}
+				<div class="row">
+					<div class="form-group col-md-6">
+						{{ form.nombre_proyecto.errors }}
+						<label>{{ form.nombre_proyecto.label }}</label>
+						{{ form.nombre_proyecto }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ form.nombre_autor.errors }}
+						<label>{{ form.nombre_autor.label }}</label>
+						{{ form.nombre_autor }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ form.asesor.errors }}
+						<label>{{ form.asesor.label }}</label>
+						{{ form.asesor }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ form.tipo_solucion.errors }}
+						<label>{{ form.tipo_solucion.label }}</label>
+						{{ form.tipo_solucion }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ form.area_tematica.errors }}
+						<label>{{ form.area_tematica.label }}</label>
+						{{ form.area_tematica }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ form.fecha_publicacion.errors }}
+						<label>{{ form.fecha_publicacion.label }}</label>
+						{{ form.fecha_publicacion }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ form.codigo_barras.errors }}
+						<label>{{ form.codigo_barras.label }}</label>
+						{{ form.codigo_barras }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ form.codigo_topografico.errors }}
+						<label>{{ form.codigo_topografico.label }}</label>
+						{{ form.codigo_topografico }}
+					</div>
+					<div class="form-group col-md-12">
+						{{ form.descripcion_proyecto.errors }}
+						<label>{{ form.descripcion_proyecto.label }}</label>
+						{{ form.descripcion_proyecto }}
+					</div>
+					<div class="form-group col-md-12">
+						{{ form.documento.errors }}
+						<label>{{ form.documento.label }}</label>
+						{{ form.documento }}
+					</div>
+					<div class="form-group text-center col-md-12">
+						<button type="submit" class="btn btn-success">Agregar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock content %}

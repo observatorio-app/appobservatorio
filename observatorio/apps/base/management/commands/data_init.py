@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django.core.management.base import BaseCommand
-from observatorio.apps.base.models import Estado
+from observatorio.apps.base.models imporo
 from observatorio.apps.proyecto.models import *
 
 class Command(BaseCommand):
@@ -10,7 +10,6 @@ class Command(BaseCommand):
 		Asesor.objects.all().delete()
 		Tematica.objects.all().delete()
 		Proyecto.objects.all().delete()
-		Estado.objects.all().delete()
 		AnoPublicacion.objects.all().delete()
 		print "Datos Eliminados"
 		TipoSolucion.objects.create(nombre_tipo_solucion = "Software Educativo")
@@ -31,15 +30,13 @@ class Command(BaseCommand):
 		Tematica.objects.create(nombre_tematica = "Bodegas de Datos")
 		Tematica.objects.create(nombre_tematica = "Bases de Datos")
 		print "Temática creados"
-		activo = Estado.objects.create(nombre_estado = "Activo")
-		Estado.objects.create(nombre_estado = "Inactivo")
-		print "Estados creados"
-		Asesor.objects.create(nombre_asesor = "Elkin Oswaldo Forero Soto", estado = activo)
-		Asesor.objects.create(nombre_asesor = "Ludwig Iván Trujillo Hernandez", estado = activo)
-		Asesor.objects.create(nombre_asesor = "Luis Fernando Cetares Ruiz", estado = activo)
-		Asesor.objects.create(nombre_asesor = "Ninguno", estado = activo)
-		Asesor.objects.create(nombre_asesor = "Jinneth Tique Ortiz", estado = activo)
+		Asesor.objects.create(nombre_asesor = "Elkin Oswaldo Forero Soto")
+		Asesor.objects.create(nombre_asesor = "Ludwig Iván Trujillo Hernandez")
+		Asesor.objects.create(nombre_asesor = "Luis Fernando Cetares Ruiz")
+		Asesor.objects.create(nombre_asesor = "Ninguno")
+		Asesor.objects.create(nombre_asesor = "Jinneth Tique Ortiz")
 		print "Asesores creados"
+		AnoPublicacion.objects.create(pk = 1, fecha_publicacion = "Sin año")
 		AnoPublicacion.objects.create(pk = 1991, fecha_publicacion = "1991")
 		AnoPublicacion.objects.create(pk = 1992, fecha_publicacion = "1992")
 		AnoPublicacion.objects.create(pk = 1993, fecha_publicacion = "1993")
