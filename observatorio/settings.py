@@ -95,9 +95,9 @@ else:
 	DATABASES = {
 		'default': {
 			'ENGINE': 'django.db.backends.mysql',
-			'NAME': 'observatorio_db',
-			'USER': 'user_db',
-			'PASSWORD': 'qwertyuiop',
+			'NAME': 'observat_db',
+			'USER': 'observat_root',
+			'PASSWORD': 'VJppi))VTG!m',
 			'OPTIONS': {
 				'autocommit': True,
 			},
