@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django.core.management.base import BaseCommand
-from observatorio.apps.base.models imporo
+from observatorio.apps.base.models import *
 from observatorio.apps.proyecto.models import *
 
 class Command(BaseCommand):
