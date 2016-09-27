@@ -37,10 +37,9 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'observatorio.apps.base',
 	'observatorio.apps.usuario',
 	'observatorio.apps.proyecto',
-	'observatorio.apps.base.templatetags',
+	'observatorio.apps.proyecto.templatetags',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -76,34 +75,30 @@ WSGI_APPLICATION = 'observatorio.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-if 'DATABASE_URL' in os.environ:
-	DATABASES = {}
-	DATABASES['default'] = dj_database_url.config()
-else:
-	"""
-	DATABASES = {
-		'default': {
-			'ENGINE': 'django.db.backends.postgresql_psycopg2',
-			'NAME': 'observatorio_db',
-			'USER': 'root',
-			'PASSWORD': 'root',
-			'HOST': 'localhost',
-			'PORT': '',
-		}
+"""
+DATABASES = {
+	'default': {
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': 'observatorio_db',
+		'USER': 'root',
+		'PASSWORD': 'root',
+		'HOST': 'localhost',
+		'PORT': '',
 	}
-	"""
-	DATABASES = {
-		'default': {
-			'ENGINE': 'django.db.backends.mysql',
-			'NAME': 'observat_db',
-			'USER': 'observat_root',
-			'PASSWORD': 'VJppi))VTG!m',
-			'OPTIONS': {
-				'autocommit': True,
-			},
-			'HOST': '127.0.0.1',
-		}
+}
+"""
+DATABASES = {
+	'default': {
+		'ENGINE': 'django.db.backends.mysql',
+		'NAME': 'observat_db',
+		'USER': 'observat_root',
+		'PASSWORD': 'VJppi))VTG!m',
+		'OPTIONS': {
+			'autocommit': True,
+		},
+		'HOST': '127.0.0.1',
 	}
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

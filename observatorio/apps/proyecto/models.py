@@ -49,8 +49,8 @@ class Proyecto(models.Model):
 	area_tematica = models.ForeignKey(Tematica)
 	fecha_publicacion = models.ForeignKey(AnoPublicacion, default = 1)
 	fecha_subido = models.DateField(auto_now = True)
-	codigo_barras = models.CharField(max_length = 20)
-	codigo_topografico = models.CharField(max_length = 20)
+	codigo_barras = models.CharField(max_length = 50)
+	codigo_topografico = models.CharField(max_length = 50)
 	documento = models.FileField(upload_to = 'file/')
 	usuario = models.ForeignKey(User)
 

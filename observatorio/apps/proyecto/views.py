@@ -30,6 +30,8 @@ class ProyectoListView(FormMixin, ListView):
 
 	def get_queryset(self):
 		queryset = super(ProyectoListView, self).get_queryset()
+		if self.request.GET.get('buscar_por') is not None:
+			queryset = queryset.filter(nombre_proyecto__icontains = self.request.GET.get('buscar_por'))
 		if self.request.GET.get('ordenar_por') == '1':
 			queryset = queryset.order_by('fecha_publicacion')
 		if self.request.GET.get('ordenar_por') == '2':

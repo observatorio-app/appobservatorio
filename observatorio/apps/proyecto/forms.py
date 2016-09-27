@@ -4,6 +4,7 @@ from django import forms
 from .models import *
 
 class ProyectoSearchForm(forms.Form):
+	buscar_por = forms.CharField(widget = forms.TextInput(attrs = {'label': 'Buscar por nombre:', 'class': 'form-control', 'placeholder': 'Digite palabra a buscar'}))
 	ordenar_por = forms.ChoiceField(choices = [('', 'Seleccione una opción'), ('1', 'Fecha ascendente'), ('2', 'Fecha descendente'), ('3', 'Título ascendente'), ('4', 'Título descendente')], label = 'Ordenar por:', widget = forms.Select(attrs = {'class': 'form-control'}))
 	filtro_solucion = forms.MultipleChoiceField(label = 'Filtrar por tipo de solución:', widget = forms.CheckboxSelectMultiple())
 	filtro_tematica = forms.MultipleChoiceField(label = 'Filtrar por tipo temática:', widget = forms.CheckboxSelectMultiple())
