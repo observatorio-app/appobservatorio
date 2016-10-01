@@ -9,37 +9,31 @@
 
 {% if is_paginated %}
 	<nav>
-		<ul class="pagination">
+		<ul class="pager">
 			{% if page_obj.has_previous %}
-				<li>
+				<li class="previous">
 					<a href="?page={{ page_obj.previous_page_number }}">
-						<span>Anterior</span>
+						<span aria-hidden="true">&larr;</span> Anterior
 					</a>
 				</li>
 			{% else %}
-				<li class="disabled">
+				<li class="previous disabled">
 					<a href="#">
-						<span>Anterior</span>
+						<span aria-hidden="true">&larr;</span> Anterior
 					</a>
 				</li>
 			{% endif %}
 
-			{% for page in paginator.page_range %}
-				<li {% if page == page_obj.number %}class="active"{% endif %}>
-					<a href="?page={{ page }}">{{ page }}</a>
-				</li>
-			{% endfor %}
-
 			{% if page_obj.has_next %}
-				<li>
+				<li class="next">
 					<a href="?page={{ page_obj.next_page_number }}">
-						<span>Siguiente</span>
+						Siguiente <span aria-hidden="true">&rarr;</span>
 					</a>
 				</li>
 			{% else %}
-				<li {% if not page_obj.has_next %}class="disabled"{% endif %}>
+				<li class="next{% if not page_obj.has_next %}disabled{% endif %}">
 					<a href="#">
-						<span>Siguiente</span>
+						Siguiente <span aria-hidden="true">&rarr;</span>
 					</a>
 				</li>
 			{% endif %}
