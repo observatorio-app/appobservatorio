@@ -11,7 +11,7 @@ template_dir = 'proyecto/'
 
 class ProyectoListView(FormMixin, ListView):
 	model = Proyecto
-	paginate_by = 10
+	paginate_by = 13
 	form_class = ProyectoSearchForm
 	template_name = template_dir+'lista_proyecto.html'
 
