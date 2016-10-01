@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+     {% include 'elements/nav_top.html' %}
+     <div class="container">
+          {% include 'elements/nav_content.html' %}
+          <div class="content">
+               <div class="row">
+                    <div class="col-md-12 text-center">
+                         <h1>Error 500</h1>
+                         <p>Ha ocurrido un error, por favor intenta más tarde</p>
+                    </div>
+               </div>
+          </div>
+     </div>
+{% endblock content %}
