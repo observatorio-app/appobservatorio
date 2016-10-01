@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import patterns, url, include
+from django.views.generic import TemplateView
 from .views import *
 
 project_detail_patterns = [
@@ -65,4 +66,5 @@ urlpatterns = patterns('observatorio.apps.proyecto.views',
 	url(r'^tematicas/', include(tematicas_patterns)),
 	url(r'^solucion/', include(solucion_patterns)),
 	url(r'^ano-publicacion/', include(ano_publicacion_patterns)),
+	url(r'^quienes-somos/$', TemplateView.as_view(template_name = 'proyecto/quienes-somos.html'), name = 'quienes_somos'),
 )

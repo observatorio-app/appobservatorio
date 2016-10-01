@@ -123,7 +123,7 @@ class ProyectoDeleteView(DeleteView):
 		return reverse('inicio')
 
 class AsesorCreateView(SuccessMessageMixin, CreateView):
-	template_name = template_dir+'form_asesor.html'
+	template_name = template_dir+'form_general.html'
 	success_message = 'Asesor agregado correctamente'
 	form_class = AsesorForm
 
@@ -138,7 +138,7 @@ class AsesorCreateView(SuccessMessageMixin, CreateView):
 
 class AsesorUpdateView(SuccessMessageMixin, UpdateView):
 	model = Asesor
-	template_name = template_dir+'form_asesor.html'
+	template_name = template_dir+'form_general.html'
 	success_message = 'Asesor actualizado correctamente'
 	form_class = AsesorForm
 
@@ -175,7 +175,7 @@ class TematicaListView(ListView):
 		return context
 
 class TematicaCreateView(SuccessMessageMixin, CreateView):
-	template_name = template_dir+'form_tematica.html'
+	template_name = template_dir+'form_general.html'
 	success_message = 'Temática agregada correctamente'
 	form_class = TematicaForm
 
@@ -190,7 +190,7 @@ class TematicaCreateView(SuccessMessageMixin, CreateView):
 
 class TematicaUpdateView(SuccessMessageMixin, UpdateView):
 	model = Tematica
-	template_name = template_dir+'form_tematica.html'
+	template_name = template_dir+'form_general.html'
 	success_message = 'Temática actualizada correctamente'
 	form_class = TematicaForm
 
@@ -227,7 +227,7 @@ class SolucionListView(ListView):
 		return context
 
 class SolucionCreateView(SuccessMessageMixin, CreateView):
-	template_name = template_dir+'form_solucion.html'
+	template_name = template_dir+'form_general.html'
 	success_message = 'Tipo de solución agregado correctamente'
 	form_class = SolucionForm
 
@@ -242,7 +242,7 @@ class SolucionCreateView(SuccessMessageMixin, CreateView):
 
 class SolucionUpdateView(SuccessMessageMixin, UpdateView):
 	model = TipoSolucion
-	template_name = template_dir+'form_solucion.html'
+	template_name = template_dir+'form_general.html'
 	success_message = 'Tipo de solución actualizada correctamente'
 	form_class = SolucionForm
 
@@ -279,7 +279,7 @@ class AnoPublicacionListView(ListView):
 		return context
 
 class AnoPublicacionCreateView(SuccessMessageMixin, CreateView):
-	template_name = template_dir+'form_ano_publicacion.html'
+	template_name = template_dir+'form_general.html'
 	success_message = 'Año de publicación agregado correctamente'
 	form_class = AnoPublicacionForm
 
@@ -294,7 +294,7 @@ class AnoPublicacionCreateView(SuccessMessageMixin, CreateView):
 
 class AnoPublicacionUpdateView(SuccessMessageMixin, UpdateView):
 	model = AnoPublicacion
-	template_name = template_dir+'form_ano_publicacion.html'
+	template_name = template_dir+'form_general.html'
 	success_message = 'Año de publicación actualizada correctamente'
 	form_class = AnoPublicacionForm
 
