@@ -30,7 +30,13 @@ ano_publicacion_detail_patterns = [
 	url(r'^eliminar/$', login_required(AnoPublicacionDeleteView.as_view()), name='delete_ano_publicacion'),
 ]
 
+programa_detail_patterns = [
+	url(r'^actualizar/$', login_required(ProgramaUpdateView.as_view()), name='edit_programa'),
+	url(r'^eliminar/$', login_required(ProgramaDeleteView.as_view()), name='delete_programa'),
+]
+
 project_patterns = [
+	url(r'^$', ProyectoListView.as_view(), name = 'lista_proyecto'),
 	url(r'^(?P<pk>\d+)/', include(project_detail_patterns)),
 	url(r'^crear/$', login_required(ProyectoCreateView.as_view()), name='crear_proyecto'),
 ]
@@ -59,12 +65,25 @@ ano_publicacion_patterns = [
 	url(r'^crear/$', login_required(AnoPublicacionCreateView.as_view()), name='crear_ano_publicacion'),
 ]
 
+programa_patterns = [
+	url(r'^$', ProgramaListView.as_view(), name = 'lista_programa'),
+	url(r'^(?P<pk>\d+)/', include(programa_detail_patterns)),
+	url(r'^crear/$', login_required(ProgramaCreateView.as_view()), name='crear_programa'),
+]
+
+contenido_detail_patterns = [
+	url(r'^actualizar/$', login_required(InicioUpdateView.as_view()), name='edit_contenido'),
+	url(r'^eliminar/$', login_required(InicioDeleteView.as_view()), name='delete_contenido'),
+]
+
 urlpatterns = patterns('observatorio.apps.proyecto.views',
-	url(r'^$', ProyectoListView.as_view(), name = 'inicio'),
 	url(r'^proyecto/', include(project_patterns)),
 	url(r'^asesor/', include(asesor_patterns)),
 	url(r'^tematicas/', include(tematicas_patterns)),
 	url(r'^solucion/', include(solucion_patterns)),
 	url(r'^ano-publicacion/', include(ano_publicacion_patterns)),
-	url(r'^quienes-somos/$', TemplateView.as_view(template_name = 'proyecto/quienes-somos.html'), name = 'quienes_somos'),
+	url(r'^programa/', include(programa_patterns)),
+	url(r'^$', InicioListView.as_view(), name = 'inicio'),
+	url(r'^(?P<pk>\d+)/', include(contenido_detail_patterns)),
+	url(r'^crear/$', login_required(InicioCreateView.as_view()), name='crear_contenido'),
 )

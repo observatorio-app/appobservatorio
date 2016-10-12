@@ -26,13 +26,16 @@
 			<p class="title-project" style="font-size: 20px;">
 				<strong>{{ object.nombre_proyecto }}</strong>
 			</p>
-			<p>{{ object.descripcion_proyecto }}</p>
+			{{ object.descripcion_proyecto|safe }}
 			<div class="row">
 				<div class="col-md-4">
 					<p><strong>Autor principal: </strong>{{ object.nombre_autor }}</p>
 				</div>
 				<div class="col-md-3">
 					<p><strong>Año publicación: </strong>{{ object.fecha_publicacion }}</p>
+				</div>
+				<div class="col-md-4">
+					<p><strong>Programa: </strong>{{ object.programa }}</p>
 				</div>
 			</div>
 			<a href="{% url 'download_document' object.pk %}" class="btn btn-default" target="_blank">Descargar Resumen</a>

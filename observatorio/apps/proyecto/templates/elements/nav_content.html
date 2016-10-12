@@ -16,7 +16,7 @@
 					<a href="{% url 'inicio' %}">Inicio</a>
 				</li>
 				<li>
-					<a href="{% url 'quienes_somos' %}">Quienes Somos</a>
+					<a href="{% url 'lista_proyecto' %}">Proyecto</a>
 				</li>
 				<li>
 					<a href="{% url 'lista_asesor' %}">Asesores</a>
@@ -26,13 +26,16 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tipos <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li>
-								<a href="{% url 'lista_tematica' %}">Temáticas</a>
+								<a href="{% url 'lista_ano_publicacion' %}">Años publicación</a>
+							</li>
+							<li>
+								<a href="{% url 'lista_programa' %}">Programa</a>
 							</li>
 							<li>
 								<a href="{% url 'lista_solucion' %}">Soluciones</a>
 							</li>
 							<li>
-								<a href="{% url 'lista_ano_publicacion' %}">Años publicación</a>
+								<a href="{% url 'lista_tematica' %}">Temáticas</a>
 							</li>
 						</ul>
 					</li>

@@ -1,17 +1,73 @@
 # -*- encoding: utf-8 -*-
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy, reverse
 from observatorio.apps.proyecto.models import *
 from django.views.generic.edit import FormMixin
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .forms import *
 
 template_dir = 'proyecto/'
 
+class InicioListView(ListView):
+	model = inicioModel
+	paginate_by = 20
+	template_name = template_dir+'quienes-somos.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(InicioListView, self).get_context_data(**kwargs)
+		context['title'] = 'Bienvenido'
+		return context
+
+class InicioCreateView(SuccessMessageMixin, CreateView):
+	template_name = template_dir+'form_general.html'
+	success_message = 'Contenido agregado correctamente'
+	form_class = inicioModelForm
+
+	def get_context_data(self, **kwargs):
+		context = super(InicioCreateView, self).get_context_data(**kwargs)
+		context['title'] = 'Agregar contenido'
+		context['url'] = '/crear/'
+		return context
+
+	def get_success_url(self):
+		return reverse('inicio')
+
+class InicioUpdateView(SuccessMessageMixin, UpdateView):
+	model = inicioModel
+	template_name = template_dir+'form_general.html'
+	success_message = 'Contenido actualizado correctamente'
+	form_class = inicioModelForm
+
+	def get_context_data(self, **kwargs):
+		context = super(InicioUpdateView, self).get_context_data(**kwargs)
+		context['title'] = 'Actualizar contenido'
+		context['url'] = '/'+self.kwargs['pk']+'/actualizar/'
+		return context
+
+	def get_success_url(self):
+		return reverse('inicio')
+
+class InicioDeleteView(DeleteView):
+	model = inicioModel
+	template_name = template_dir+'delete_general.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(InicioDeleteView, self).get_context_data(**kwargs)
+		context['title'] = 'Confirmación'
+		context['url'] = '/'+self.kwargs['pk']+'/eliminar/'
+		return context
+
+	def get_success_url(self):
+		return reverse('inicio')
+
+
+
+
 class ProyectoListView(FormMixin, ListView):
 	model = Proyecto
-	paginate_by = 13
+	paginate_by = 20
 	form_class = ProyectoSearchForm
 	template_name = template_dir+'lista_proyecto.html'
 
@@ -22,6 +78,7 @@ class ProyectoListView(FormMixin, ListView):
 
 	def get_form_kwargs(self):
 		kwargs = super(ProyectoListView, self).get_form_kwargs()
+		kwargs['buscar_por'] = self.request.GET.get('buscar_por')
 		kwargs['ordenar_por'] = self.request.GET.get('ordenar_por')
 		kwargs['filtro_solucion'] = self.request.GET.getlist('filtro_solucion')
 		kwargs['filtro_tematica'] = self.request.GET.getlist('filtro_tematica')
@@ -29,9 +86,10 @@ class ProyectoListView(FormMixin, ListView):
 		return kwargs
 
 	def get_queryset(self):
-		queryset = super(ProyectoListView, self).get_queryset()
+		queryset = super(ProyectoListView, self).get_queryset().order_by('nombre_proyecto')
 		if self.request.GET.get('buscar_por') is not None:
-			queryset = queryset.filter(nombre_proyecto__icontains = self.request.GET.get('buscar_por'))
+			find_by = self.request.GET.get('buscar_por')
+			queryset = queryset.filter(Q(nombre_proyecto__icontains = find_by) | Q(nombre_autor__icontains = find_by) | Q(asesor__nombre_asesor__icontains = find_by) | Q(descripcion_proyecto__icontains = find_by))
 		if self.request.GET.get('ordenar_por') == '1':
 			queryset = queryset.order_by('fecha_publicacion')
 		if self.request.GET.get('ordenar_por') == '2':
@@ -66,6 +124,9 @@ class AsesorListView(ListView):
 		context = super(AsesorListView, self).get_context_data(**kwargs)
 		context['title'] = 'Listado de asesores'
 		return context
+
+	def get_queryset(self):
+		return super(AsesorListView, self).get_queryset().order_by('nombre_asesor')
 
 def download_document(request, pk):
 	proyecto = Proyecto.objects.get(pk = pk)
@@ -112,11 +173,12 @@ class ProyectoUpdateView(SuccessMessageMixin, UpdateView):
 
 class ProyectoDeleteView(DeleteView):
 	model = Proyecto
-	template_name = template_dir+'delete_proyecto.html'
+	template_name = template_dir+'delete_general.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(ProyectoDeleteView, self).get_context_data(**kwargs)
 		context['title'] = 'Confirmación'
+		context['url'] = '/proyecto/'+self.kwargs['pk']+'/eliminar/'
 		return context
 
 	def get_success_url(self):
@@ -153,11 +215,12 @@ class AsesorUpdateView(SuccessMessageMixin, UpdateView):
 
 class AsesorDeleteView(DeleteView):
 	model = Asesor
-	template_name = template_dir+'delete_asesor.html'
+	template_name = template_dir+'delete_general.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(AsesorDeleteView, self).get_context_data(**kwargs)
 		context['title'] = 'Confirmación'
+		context['url'] = '/asesor/'+self.kwargs['pk']+'/eliminar/'
 		return context
 
 	def get_success_url(self):
@@ -173,6 +236,9 @@ class TematicaListView(ListView):
 		context = super(TematicaListView, self).get_context_data(**kwargs)
 		context['title'] = 'Listado de temáticas'
 		return context
+
+	def get_queryset(self):
+		return super(TematicaListView, self).get_queryset().order_by('nombre_tematica')
 
 class TematicaCreateView(SuccessMessageMixin, CreateView):
 	template_name = template_dir+'form_general.html'
@@ -205,11 +271,12 @@ class TematicaUpdateView(SuccessMessageMixin, UpdateView):
 
 class TematicaDeleteView(DeleteView):
 	model = Tematica
-	template_name = template_dir+'delete_tematica.html'
+	template_name = template_dir+'delete_general.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(TematicaDeleteView, self).get_context_data(**kwargs)
 		context['title'] = 'Confirmación'
+		context['url'] = '/tematicas/'+self.kwargs['pk']+'/eliminar/'
 		return context
 
 	def get_success_url(self):
@@ -225,6 +292,9 @@ class SolucionListView(ListView):
 		context = super(SolucionListView, self).get_context_data(**kwargs)
 		context['title'] = 'Listado de tipo de soluciones'
 		return context
+
+	def get_queryset(self):
+		return super(SolucionListView, self).get_queryset().order_by('nombre_tipo_solucion')
 
 class SolucionCreateView(SuccessMessageMixin, CreateView):
 	template_name = template_dir+'form_general.html'
@@ -257,11 +327,12 @@ class SolucionUpdateView(SuccessMessageMixin, UpdateView):
 
 class SolucionDeleteView(DeleteView):
 	model = TipoSolucion
-	template_name = template_dir+'delete_solucion.html'
+	template_name = template_dir+'delete_general.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(SolucionDeleteView, self).get_context_data(**kwargs)
 		context['title'] = 'Confirmación'
+		context['url'] = '/solucion/'+self.kwargs['pk']+'/eliminar/'
 		return context
 
 	def get_success_url(self):
@@ -277,6 +348,9 @@ class AnoPublicacionListView(ListView):
 		context = super(AnoPublicacionListView, self).get_context_data(**kwargs)
 		context['title'] = 'Listado de año de publicación'
 		return context
+
+	def get_queryset(self):
+		return super(AnoPublicacionListView, self).get_queryset().order_by('fecha_publicacion')
 
 class AnoPublicacionCreateView(SuccessMessageMixin, CreateView):
 	template_name = template_dir+'form_general.html'
@@ -309,12 +383,69 @@ class AnoPublicacionUpdateView(SuccessMessageMixin, UpdateView):
 
 class AnoPublicacionDeleteView(DeleteView):
 	model = AnoPublicacion
-	template_name = template_dir+'delete_ano_publicacion.html'
+	template_name = template_dir+'delete_general.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(AnoPublicacionDeleteView, self).get_context_data(**kwargs)
 		context['title'] = 'Confirmación'
+		context['url'] = '/ano-publicacion/'+self.kwargs['pk']+'/eliminar/'
 		return context
 
 	def get_success_url(self):
 		return reverse('lista_ano_publicacion')
+
+class ProgramaListView(ListView):
+	model = Programa
+	paginate_by = 10
+	form_class = ProgramaForm
+	template_name = template_dir+'lista_programa.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ProgramaListView, self).get_context_data(**kwargs)
+		context['title'] = 'Listado de programas'
+		return context
+
+	def get_queryset(self):
+		return super(ProgramaListView, self).get_queryset().order_by('nombre_programa')
+
+class ProgramaCreateView(SuccessMessageMixin, CreateView):
+	template_name = template_dir+'form_general.html'
+	success_message = 'Programa agregado correctamente'
+	form_class = ProgramaForm
+
+	def get_context_data(self, **kwargs):
+		context = super(ProgramaCreateView, self).get_context_data(**kwargs)
+		context['title'] = 'Agregar programa'
+		context['url'] = '/programa/crear/'
+		return context
+
+	def get_success_url(self):
+		return reverse('lista_programa')
+
+class ProgramaUpdateView(SuccessMessageMixin, UpdateView):
+	model = Programa
+	template_name = template_dir+'form_general.html'
+	success_message = 'Programa actualizada correctamente'
+	form_class = ProgramaForm
+
+	def get_context_data(self, **kwargs):
+		context = super(ProgramaUpdateView, self).get_context_data(**kwargs)
+		context['title'] = 'Actualizar programa'
+		context['url'] = '/programa/'+self.kwargs['pk']+'/actualizar/'
+		return context
+
+	def get_success_url(self):
+		return reverse('lista_programa')
+
+class ProgramaDeleteView(DeleteView):
+	model = Programa
+	template_name = template_dir+'delete_general.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ProgramaDeleteView, self).get_context_data(**kwargs)
+		context['title'] = 'Confirmación'
+		context['url'] = '/programa/'+self.kwargs['pk']+'/eliminar/'
+		return context
+
+	def get_success_url(self):
+		return reverse('lista_programa')

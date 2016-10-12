@@ -4,6 +4,17 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 
+class inicioModel(models.Model):
+	titulo_inicio = models.CharField(max_length = 100)
+	descripcion_inicio = models.CharField(max_length = 2000)
+	principal_inicio = models.BooleanField(default = False)
+
+	def __str__(self):
+		return self.titulo_inicio
+
+	def __unicode__(self):
+		return self.titulo_inicio
+
 class TipoSolucion(models.Model):
 	nombre_tipo_solucion = models.CharField(max_length = 80)
 
@@ -40,6 +51,15 @@ class AnoPublicacion(models.Model):
 	def __unicode__(self):
 		return self.fecha_publicacion
 
+class Programa(models.Model):
+	nombre_programa = models.CharField(max_length = 150)
+
+	def __str__(self):
+		return self.nombre_programa
+
+	def __unicode__(self):
+		return self.nombre_programa
+
 class Proyecto(models.Model):
 	nombre_proyecto = models.CharField(max_length = 300)
 	descripcion_proyecto = models.CharField(max_length = 1500)
@@ -53,6 +73,7 @@ class Proyecto(models.Model):
 	codigo_topografico = models.CharField(max_length = 100)
 	documento = models.FileField(upload_to = 'file/')
 	usuario = models.ForeignKey(User)
+	#programa = models.ForeignKey(Programa, default = 1)
 
 	def __str__(self):
 		return self.nombre_proyecto

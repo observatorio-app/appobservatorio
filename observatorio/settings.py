@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%z6lol&56x*y4lkppzlv$!_o%ylo^pxs*1+(zmf-^337anmfim'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -90,6 +90,9 @@ DATABASES = {
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.mysql',
+		#'NAME': 'observat_db',
+		#'USER': 'root',
+		#'PASSWORD': 'root',
 		'NAME': 'observat_db',
 		'USER': 'observat_root',
 		'PASSWORD': 'VJppi))VTG!m',
