@@ -117,7 +117,7 @@ class inicioModelForm(forms.ModelForm):
 		labels = {
 			'titulo_inicio': 'Título',
 			'descripcion_inicio': 'Descripción',
-			'principal_inicio': 'publicación pincipal',
+			'imagen': 'Imagen',
 		}
 
 class ProgramaForm(forms.ModelForm):

@@ -20,6 +20,9 @@ class InicioListView(ListView):
 		context['title'] = 'Bienvenido'
 		return context
 
+	def get_queryset(self):
+		return super(InicioListView, self).get_queryset().order_by('-pk')
+
 class InicioCreateView(SuccessMessageMixin, CreateView):
 	template_name = template_dir+'form_general.html'
 	success_message = 'Contenido agregado correctamente'
@@ -61,9 +64,6 @@ class InicioDeleteView(DeleteView):
 
 	def get_success_url(self):
 		return reverse('inicio')
-
-
-
 
 class ProyectoListView(FormMixin, ListView):
 	model = Proyecto

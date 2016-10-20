@@ -7,7 +7,7 @@ from django.db import models
 class inicioModel(models.Model):
 	titulo_inicio = models.CharField(max_length = 100)
 	descripcion_inicio = models.CharField(max_length = 2000)
-	principal_inicio = models.BooleanField(default = False)
+	imagen = models.ImageField(upload_to = 'img/', blank = True, null = True)
 
 	def __str__(self):
 		return self.titulo_inicio
@@ -73,7 +73,7 @@ class Proyecto(models.Model):
 	codigo_topografico = models.CharField(max_length = 100)
 	documento = models.FileField(upload_to = 'file/')
 	usuario = models.ForeignKey(User)
-	#programa = models.ForeignKey(Programa, default = 1)
+	programa = models.ForeignKey(Programa, default = 1)
 
 	def __str__(self):
 		return self.nombre_proyecto
